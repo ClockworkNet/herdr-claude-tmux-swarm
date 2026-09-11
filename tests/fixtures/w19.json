@@ -1,0 +1,120 @@
+{
+ "layout": {
+  "area": {
+   "height": 64,
+   "width": 215,
+   "x": 26,
+   "y": 1
+  },
+  "focused_pane_id": "w19:p2",
+  "panes": [
+   {
+    "focused": true,
+    "pane_id": "w19:p2",
+    "rect": {
+     "height": 64,
+     "width": 108,
+     "x": 26,
+     "y": 1
+    }
+   },
+   {
+    "focused": false,
+    "pane_id": "w19:p3",
+    "rect": {
+     "height": 64,
+     "width": 107,
+     "x": 134,
+     "y": 1
+    }
+   }
+  ],
+  "splits": [
+   {
+    "direction": "right",
+    "id": "split_0_root",
+    "ratio": 0.5,
+    "rect": {
+     "height": 64,
+     "width": 215,
+     "x": 26,
+     "y": 1
+    }
+   }
+  ],
+  "tab_id": "w19:t1",
+  "workspace_id": "w19",
+  "zoomed": false
+ },
+ "panes": [
+  {
+   "pane_id": "w19:p2",
+   "tab_id": "w19:t1",
+   "workspace_id": "w19"
+  },
+  {
+   "pane_id": "w19:p3",
+   "tab_id": "w19:t1",
+   "workspace_id": "w19"
+  }
+ ],
+ "ppid": {
+  "34760": 1,
+  "64705": 34760,
+  "66650": 64705,
+  "72866": 34760,
+  "73529": 72866
+ },
+ "process_info": {
+  "w19:p2": {
+   "foreground_process_group_id": 66650,
+   "foreground_processes": [
+    {
+     "argv": [
+      "caffeinate",
+      "-i",
+      "-t",
+      "300"
+     ],
+     "argv0": "caffeinate",
+     "cmdline": "caffeinate -i -t 300",
+     "cwd": "/Users/example/dev/demo",
+     "name": "caffeinate",
+     "pid": 14458
+    },
+    {
+     "argv": [
+      "claude"
+     ],
+     "argv0": "claude",
+     "cmdline": "claude",
+     "cwd": "/Users/example/dev/demo",
+     "name": "claude",
+     "pid": 66650
+    }
+   ],
+   "pane_id": "w19:p2",
+   "shell_pid": 64705
+  },
+  "w19:p3": {
+   "foreground_process_group_id": 73529,
+   "foreground_processes": [
+    {
+     "argv": [
+      "tmux",
+      "-L",
+      "claude-swarm-66650",
+      "a"
+     ],
+     "argv0": "tmux",
+     "cmdline": "tmux -L claude-swarm-66650 a",
+     "cwd": "/Users/example/dev/demo",
+     "name": "tmux",
+     "pid": 73529
+    }
+   ],
+   "pane_id": "w19:p3",
+   "shell_pid": 72866
+  }
+ }
+}

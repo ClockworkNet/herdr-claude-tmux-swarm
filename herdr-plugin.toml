@@ -1,0 +1,54 @@
+id = "cw.claude-swarm"
+name = "Claude swarm view"
+version = "0.1.0"
+min_herdr_version = "0.8.2"
+description = "Show a Claude Code teammate swarm (tmux) in a split beside the pane that spawned it"
+platforms = ["macos", "linux"]
+
+# One-shot after session restore: forks the detached watcher and returns.
+[[startup]]
+command = ["/bin/bash", "bin/run.sh", "start"]
+
+[[actions]]
+id = "show"
+title = "Show Claude swarm for this pane"
+contexts = ["pane"]
+command = ["/bin/bash", "bin/run.sh", "show", "--quiet"]
+
+[[actions]]
+id = "hide"
+title = "Hide Claude swarm for this pane"
+contexts = ["pane"]
+command = ["/bin/bash", "bin/run.sh", "hide", "--quiet"]
+
+# One key for both directions; show and hide stay for the pane menu and for
+# anyone who wants a binding that only ever goes one way.
+[[actions]]
+id = "toggle"
+title = "Toggle Claude swarm for this pane"
+contexts = ["pane"]
+command = ["/bin/bash", "bin/run.sh", "toggle", "--quiet"]
+
+[[actions]]
+id = "watcher-start"
+title = "Start the swarm watcher"
+contexts = ["workspace"]
+command = ["/bin/bash", "bin/run.sh", "start"]
+
+[[actions]]
+id = "watcher-stop"
+title = "Stop the swarm watcher"
+contexts = ["workspace"]
+command = ["/bin/bash", "bin/run.sh", "stop"]
+
+[[actions]]
+id = "status"
+title = "Swarm watcher status"
+contexts = ["workspace"]
+command = ["/bin/bash", "bin/run.sh", "status"]
+
+[[panes]]
+id = "swarm"
+title = "Claude swarm"
+placement = "split"
+command = ["/bin/bash", "bin/swarm-pane.sh"]
