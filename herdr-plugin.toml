@@ -1,6 +1,6 @@
 id = "cw.claude-swarm"
 name = "Claude swarm view"
-version = "0.1.0"
+version = "0.2.0"
 min_herdr_version = "0.8.2"
 description = "Show a Claude Code teammate swarm (tmux) in a split beside the pane that spawned it"
 platforms = ["macos", "linux"]

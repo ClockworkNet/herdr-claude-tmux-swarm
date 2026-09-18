@@ -93,6 +93,9 @@ wide as it is tall, else down). Restart the watcher after editing.
   toggle would open a second view of the same swarm. Before opening anything the code also asks
   Herdr which pane is already attached to that socket and adopts it, so state that is wrong for
   any other reason still cannot produce two copies.
+- After opening a view the watcher resizes it by 0.02 of the split and back, which is what
+  settling a pane drawn at the wrong size takes. The ratio ends where it started. See CHANGELOG.md
+  for what this does and does not fix.
 - Herdr's own view of action runs: `herdr plugin log list --plugin cw.claude-swarm`.
 
 ## Tests

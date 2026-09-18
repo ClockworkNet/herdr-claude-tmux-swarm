@@ -43,6 +43,9 @@ SOCKET_RE = re.compile(r"^claude-swarm-(\d+)$")
 DEFAULT_INTERVAL = 2.0
 MAX_MAP_ATTEMPTS = 5  # cycles to keep looking for an owner pane before giving up
 STATE_LOCK_WAIT = 5.0  # seconds an action waits for the watcher's state lock before going it alone
+NUDGE_RATIO = 0.02     # split fraction the new view is resized by, and back, to settle its draw
+NUDGE_PAUSE = 0.8      # seconds between the two halves, so the first resize is applied before the
+                       # second undoes it. 0.8 is what was measured; shorter was never tested.
 LOG_CAP_BYTES = 1_000_000
 
 HERDR = os.environ.get("HERDR_BIN_PATH") or "herdr"
@@ -452,7 +455,28 @@ class Runtime:
         if not pane_id:
             raise HerdrError("no_pane_id", json.dumps(res)[:300])
         self.log(f"opened {pane_id} ({direction} of {owner_pane}) for {name}")
+        self.nudge(pane_id, direction)
         return pane_id
+
+    def nudge(self, pane_id, direction):
+        """Resize the new split by a hair and straight back.
+
+        A pane attached at the moment of the split can come up drawn at the wrong size, and a
+        resize is what settles it. The two halves are equal and opposite, so the split ratio ends
+        where it started. `--amount` is a fraction of the split, not a column count.
+        """
+        first, back = ("right", "left") if direction == "right" else ("down", "up")
+        try:
+            herdr("pane", "resize", "--pane", pane_id, "--direction", first,
+                  "--amount", str(NUDGE_RATIO))
+            time.sleep(NUDGE_PAUSE)
+            herdr("pane", "resize", "--pane", pane_id, "--direction", back,
+                  "--amount", str(NUDGE_RATIO))
+        except HerdrError as e:
+            # A view that draws badly is better than one that is left the wrong size.
+            self.log(f"nudge of {pane_id} failed, leaving it alone: {e}")
+            return
+        self.log(f"nudged {pane_id} {first}/{back} by {NUDGE_RATIO} to settle the draw")
 
     def close_view(self, pane_id, name):
         """Close a pane this plugin opened. Refuses if the pane no longer runs our tmux attach."""
